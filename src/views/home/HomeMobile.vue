@@ -1,8 +1,8 @@
 <template>
   <div class="flex flex-col w-full">
-    <div class="bg-brand w-full mx-auto pt-2 pb-28 px-6 items-start">
+    <div class="bg-brand w-full mx-auto pt-2 pb-28 px-4 items-start">
       <div class="flex flex-row justify-between items-center">
-        <div class="flex flex-row space-x-4">
+        <div class="flex flex-row space-x-2">
           <div
             @click="activeTab = 0"
             :class="{
@@ -11,7 +11,7 @@
             class="
               font-bold
               py-2
-              px-4
+              px-2
               text-lg text-white
               opacity-80
               cursor-pointer
@@ -27,7 +27,7 @@
             class="
               font-bold
               py-2
-              px-4
+              px-2
               text-lg text-white
               opacity-80
               cursor-pointer
@@ -37,7 +37,7 @@
           </div>
         </div>
         <div
-          v-if="isLoggedIn"
+          v-if="activeTab === 0 && isLoggedIn"
           @click="emitRequestResource"
           class="
             bg-brand-light
@@ -55,7 +55,28 @@
           "
         >
           <PlusIcon class="h-6 w-6" />
-          <span>Add {{ activeTab === 0 ? "Resource" : "Request" }}</span>
+          <span>Add Resource</span>
+        </div>
+        <div
+          v-if="activeTab === 1"
+          @click="emitRequestResource"
+          class="
+            bg-brand-light
+            text-white
+            space-x-1
+            shadow-lg
+            flex flex-row
+            items-center
+            justify-center
+            py-1
+            text-lg
+            px-4
+            rounded-full
+            cursor-pointer
+          "
+        >
+          <PlusIcon class="h-6 w-6" />
+          <span>Add Request</span>
         </div>
       </div>
     </div>
