@@ -25,10 +25,13 @@
             as="select"
           >
             <option value="Medicines">Medicines</option>
+            <option value="Vaccination">Vaccination</option>
             <option value="Hospital beds">Hospital beds</option>
             <option value="Diagnostics">Diagnostics</option>
             <option value="Isolation centers">Isolation centers</option>
             <option value="Oxygen Cylinders">Oxygen Cylinders</option>
+            <option value="Food">Food</option>
+            <option value="Online consultation">Online consultation</option>
           </Field>
         </label>
 

@@ -126,7 +126,7 @@
                 hover:opacity-100
               "
             >
-              Register
+              Become a volunteer
             </router-link>
           </div>
           <div class="space-x-8 flex flex-row items-center" v-if="isLoggedIn">
@@ -292,7 +292,7 @@
                       "
                     >
                       <span class="ml-3 text-base font-medium text-gray-900">
-                        Register
+                        Become a volunteer
                       </span>
                     </router-link>
                   </PopoverButton>

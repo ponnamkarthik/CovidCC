@@ -50,7 +50,7 @@
           @click="openRegister"
           class="font-bold py-2 px-4 text-lg cursor-pointer"
         >
-          Register
+          Become a volunteer
         </div>
       </div>
       <router-view></router-view>

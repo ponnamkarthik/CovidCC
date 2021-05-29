@@ -7,8 +7,14 @@
     </div>
     <div class="flex flex-col space-x-4 items-end">
       <p class="text-gray-400">{{ timeAgo }}</p>
-      <div class="bg-brand bg-opacity-20 px-2 rounded-full py-1" v-if="action">
-        <p class="text-brand text-xs">{{ action }}</p>
+      <div
+        :class="getFormatColor(action)"
+        class="bg-opacity-20 px-2 rounded-full py-1"
+        v-if="action"
+      >
+        <p class="text-brand text-xs whitespace-nowrap">
+          {{ formatString(action) }}
+        </p>
       </div>
     </div>
   </div>
@@ -37,6 +43,20 @@ export default {
     action: {
       default: "",
       type: String,
+    },
+  },
+  methods: {
+    formatString(value) {
+      return value.replace("_", " ");
+    },
+    getFormatColor(action) {
+      if (action === "IN_PROGRESS") {
+        return "bg-brand";
+      }
+      if (action === "COMPLETED") {
+        return "bg-red-300";
+      }
+      return "bg-brand";
     },
   },
 };
