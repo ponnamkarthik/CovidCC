@@ -39,6 +39,25 @@
       </div>
       <div class="w-full text-left">
         <Field
+          name="mobile"
+          type="number"
+          v-model="mobile"
+          placeholder="Mobile"
+          class="
+            form-input
+            px-4
+            py-4
+            rounded
+            bg-input-grey
+            border-0
+            w-full
+            focus:ring-brand
+          "
+        />
+        <ErrorMessage class="text-red-500" name="mobile" />
+      </div>
+      <div class="w-full text-left">
+        <Field
           name="address"
           type="text"
           v-model="address"
@@ -113,6 +132,7 @@ export default {
       type: yup.string().required(),
       address: yup.string().required(),
       comments: yup.string().required(),
+      mobile: yup.string().required().min(10),
     });
 
     const { meta, errors } = useForm({
@@ -134,6 +154,7 @@ export default {
       type: "",
       address: "",
       comments: "",
+      mobile: "",
     };
   },
   methods: {

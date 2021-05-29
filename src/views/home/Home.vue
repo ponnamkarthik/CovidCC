@@ -27,7 +27,7 @@
           </div>
           <div class="flex flex-row items-center space-x-4 justify-center">
             <div
-              v-if="isLoggedIn"
+              v-if="isLoggedIn && isVolunteer"
               @click="openAddResourceDialog"
               class="
                 bg-brand
@@ -53,7 +53,7 @@
         <resources-list-component :resources="resources" />
 
         <div
-          v-if="isLoggedIn"
+          v-if="isLoggedIn && isVolunteer"
           @click="openAddResourceDialog"
           class="cursor-pointer bg-brand text-white py-3 text-lg px-8 rounded"
         >
@@ -288,7 +288,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["resources", "requests", "isLoggedIn"]),
+    ...mapGetters(["resources", "requests", "isLoggedIn", "isVolunteer"]),
   },
   methods: {
     openAddRequestDialog() {

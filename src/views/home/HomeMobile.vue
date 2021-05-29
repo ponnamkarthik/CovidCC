@@ -37,7 +37,7 @@
           </div>
         </div>
         <div
-          v-if="activeTab === 0 && isLoggedIn"
+          v-if="activeTab === 0 && isLoggedIn && isVolunteer"
           @click="emitRequestResource"
           class="
             bg-brand-light
@@ -97,7 +97,7 @@ export default {
   name: "HomeMobile",
   components: { RequestsListComponent, ResourcesListComponent, PlusIcon },
   computed: {
-    ...mapGetters(["isLoggedIn"]),
+    ...mapGetters(["isLoggedIn", "isVolunteer"]),
   },
   data() {
     return {

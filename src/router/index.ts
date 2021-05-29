@@ -22,6 +22,14 @@ const routes: Array<RouteRecordRaw> = [
           ),
       },
       {
+        path: "/users",
+        name: "users",
+        component: () =>
+          import(
+            /* webpackChunkName: "users" */ "../views/users/UsersList.vue"
+          ),
+      },
+      {
         path: "/auth",
         name: "Login",
         component: () =>

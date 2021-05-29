@@ -130,6 +130,20 @@
             </router-link>
           </div>
           <div class="space-x-8 flex flex-row items-center" v-if="isLoggedIn">
+            <router-link
+              v-if="activeUser.role === 'volunteer'"
+              to="/users"
+              class="
+                whitespace-nowrap
+                text-base
+                font-medium
+                text-white
+                opacity-90
+                hover:opacity-100
+              "
+            >
+              Users
+            </router-link>
             <PopoverGroup as="nav" class="hidden md:flex space-x-10">
               <Popover class="relative" v-slot="{ open }">
                 <PopoverButton>
@@ -170,8 +184,11 @@
                       "
                     >
                       <div class="relative grid gap-y-4 bg-white px-4 py-6">
-                        <h1 class="text-black text-left" v-if="user">
-                          {{ user.email }}
+                        <h1
+                          class="text-black text-left"
+                          v-if="activeUser.email"
+                        >
+                          {{ activeUser.email }}
                         </h1>
                         <a
                           @click="logout"
@@ -298,10 +315,27 @@
                   </PopoverButton>
                 </template>
                 <template v-if="isLoggedIn">
-                  <h1 class="text-black text-left" v-if="user">
-                    {{ user.email }}
+                  <h1 class="text-black text-left">
+                    {{ activeUser.email }}
                   </h1>
 
+                  <PopoverButton v-if="isVolunteer">
+                    <router-link
+                      to="/users"
+                      class="
+                        -m-3
+                        p-3
+                        flex
+                        items-center
+                        rounded-md
+                        hover:bg-gray-50
+                      "
+                    >
+                      <span class="ml-3 text-base font-medium text-gray-900">
+                        Users
+                      </span>
+                    </router-link>
+                  </PopoverButton>
                   <PopoverButton>
                     <a
                       @click="logout"
@@ -342,7 +376,7 @@ import {
   XIcon,
   SearchIcon,
 } from "@heroicons/vue/solid";
-import { useStore } from "vuex";
+import { mapGetters, useStore } from "vuex";
 import { computed } from "vue";
 
 export default {
@@ -361,16 +395,10 @@ export default {
     return {
       search: "",
       showSearchBar: false,
-      user: {},
     };
   },
-  setup() {
-    const store = useStore();
-
-    return {
-      // access a state in computed function
-      isLoggedIn: computed(() => store.state.isLoggedIn),
-    };
+  computed: {
+    ...mapGetters(["isLoggedIn", "activeUser", "isVolunteer"]),
   },
   methods: {
     logout() {
@@ -389,11 +417,6 @@ export default {
         this.search = "";
       }
     },
-  },
-  created() {
-    if (this.isLoggedIn) {
-      this.user = JSON.parse(localStorage.getItem("user"));
-    }
   },
 };
 </script>

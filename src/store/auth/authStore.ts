@@ -28,6 +28,8 @@ const actions: ActionTree<any, any> = {
       try {
         const response = await http.get("/v1/activities/currentUser");
         commit("saveUser", JSON.stringify(response.data));
+
+        commit("SET_USER_DATA");
         resolve(response.data);
       } catch (e) {
         try {
