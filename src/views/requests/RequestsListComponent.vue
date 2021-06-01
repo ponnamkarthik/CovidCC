@@ -1,4 +1,7 @@
 <template>
+  <div class="flex pt-4 pb-2">
+    <request-filter-chips-component />
+  </div>
   <div class="grid gap-x-4 gap-y-4 divide-y-2 divide-gray-100">
     <template v-for="(request, index) in requests" :key="index">
       <basic-request-card-component
@@ -21,10 +24,11 @@
 import BasicRequestCardComponent from "@/components/home/BasicRequestCardComponent";
 import * as timeago from "timeago.js";
 import { default as toast } from "@/utils/toastUtils";
+import RequestFilterChipsComponent from "@/views/requests/RequestFilterChipsComponent";
 
 export default {
   name: "RequestsListComponent",
-  components: { BasicRequestCardComponent },
+  components: { RequestFilterChipsComponent, BasicRequestCardComponent },
   props: {
     requests: {
       default: [],

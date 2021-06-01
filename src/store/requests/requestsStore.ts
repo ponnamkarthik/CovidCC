@@ -3,11 +3,20 @@ import { Module, ActionTree } from "vuex";
 import { default as ndjson } from "@/ndjson";
 
 const actions: ActionTree<any, any> = {
-  fetchRequests({ commit }) {
+  fetchRequests({ commit, state }) {
     // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve, reject) => {
       try {
-        const response = await axios.get("/v1/api/request");
+        const queryParams = {};
+
+        if (state.requestFilter) {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          queryParams["action"] = state.requestFilter;
+        }
+        const response = await axios.get("/v1/api/request", {
+          params: queryParams,
+        });
 
         let json = [];
         if (typeof response.data == "object") {
@@ -83,16 +92,23 @@ const actions: ActionTree<any, any> = {
 const requestsStore: Module<any, any> = {
   state: () => ({
     requests: [],
+    requestFilter: "",
   }),
   mutations: {
     setRequests(state, data) {
       state.requests = data;
+    },
+    setRequestFilter(state, data) {
+      state.requestFilter = data;
     },
   },
   actions,
   getters: {
     requests(state) {
       return state.requests;
+    },
+    requestFilter(state) {
+      return state.requestFilter;
     },
   },
 };
