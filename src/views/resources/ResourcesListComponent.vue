@@ -5,6 +5,7 @@
         :resource="resource.type"
         :hospital="resource.hospitalName"
         :options="resource.metadata"
+        :mobile="resources.mobileNumber"
         :time-ago="getTimeAgo(resource.updateAt)"
         :address="resource.description"
       >

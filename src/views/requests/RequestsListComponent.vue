@@ -5,9 +5,12 @@
         :resource="request.type"
         :comment="request.comments.join('\n')"
         :action="request.action"
-        beds=""
+        :mobile="request.mobileNumber"
+        :assigned-to="(request.volunteerAssigned || {}).id"
+        v-on:markRequestComplete="markRequestComplete(request)"
         :time-ago="getTimeAgo(request.updateAt)"
         :address="request.locationAddress"
+        v-on:assignRequestToMe="assignRequestToMe(request)"
       >
       </basic-request-card-component>
     </template>
@@ -17,6 +20,7 @@
 <script>
 import BasicRequestCardComponent from "@/components/home/BasicRequestCardComponent";
 import * as timeago from "timeago.js";
+import { default as toast } from "@/utils/toastUtils";
 
 export default {
   name: "RequestsListComponent",
@@ -29,6 +33,28 @@ export default {
   methods: {
     getTimeAgo(date) {
       return timeago.format(date);
+    },
+    assignRequestToMe(request) {
+      this.$store
+        .dispatch("assignRequest", request.id)
+        .then((data) => {
+          toast.success("Request assigned");
+          this.$store.dispatch("fetchRequests");
+        })
+        .catch((err) => {
+          toast.error(err);
+        });
+    },
+    markRequestComplete(request) {
+      this.$store
+        .dispatch("markRequestComplete", request.id)
+        .then((data) => {
+          toast.success("Request marked as completed");
+          this.$store.dispatch("fetchRequests");
+        })
+        .catch((err) => {
+          toast.error(err);
+        });
     },
   },
 };

@@ -4,6 +4,9 @@
       <h3 class="uppercase">{{ resource }}</h3>
       <p class="font-bold text-left">{{ hospital }}</p>
       <p class="text-gray-400 text-left">{{ address }}</p>
+      <a :href="'tel:' + mobile">
+        <p class="text-gray-400 text-left text-brand">{{ mobile }}</p>
+      </a>
     </div>
     <div class="flex flex-row space-x-4 items-center">
       <p class="text-gray-400">{{ timeAgo }}</p>
@@ -27,6 +30,10 @@ export default {
       type: String,
     },
     address: {
+      default: "",
+      type: String,
+    },
+    mobile: {
       default: "",
       type: String,
     },

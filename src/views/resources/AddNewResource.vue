@@ -209,6 +209,7 @@ export default {
       navigator.geolocation.getCurrentPosition(
         (pos) => {
           this.location = pos;
+          console.log(pos);
         },
         (err) => {
           console.log(err);
@@ -229,6 +230,7 @@ export default {
         metadata: {
           available: values.available,
         },
+        mobileNumber: values.mobile,
       };
 
       try {

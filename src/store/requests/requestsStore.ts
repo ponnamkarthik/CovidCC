@@ -9,8 +9,12 @@ const actions: ActionTree<any, any> = {
       try {
         const response = await axios.get("/v1/api/request");
 
-        const json = ndjson(response.data as string);
-
+        let json = [];
+        if (typeof response.data == "object") {
+          json = [response.data];
+        } else {
+          json = ndjson(response.data as string);
+        }
         commit("setRequests", json);
 
         resolve(json);
@@ -28,6 +32,42 @@ const actions: ActionTree<any, any> = {
     return new Promise(async (resolve, reject) => {
       try {
         const response = await axios.post("/v1/api/request", payload);
+
+        resolve(response.data);
+      } catch (e) {
+        try {
+          reject(e.response.data.error);
+        } catch (e) {
+          reject(e.message);
+        }
+      }
+    });
+  },
+  assignRequest({ commit }, requestId) {
+    // eslint-disable-next-line no-async-promise-executor
+    return new Promise(async (resolve, reject) => {
+      try {
+        const response = await axios.post(
+          `/v1/activities/request/${requestId}/assignToVolunteer`
+        );
+
+        resolve(response.data);
+      } catch (e) {
+        try {
+          reject(e.response.data.error);
+        } catch (e) {
+          reject(e.message);
+        }
+      }
+    });
+  },
+  markRequestComplete({ commit }, requestId) {
+    // eslint-disable-next-line no-async-promise-executor
+    return new Promise(async (resolve, reject) => {
+      try {
+        const response = await axios.put(
+          `/v1/activities/updateRequestAction/${requestId}?action=COMPLETED`
+        );
 
         resolve(response.data);
       } catch (e) {

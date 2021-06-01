@@ -9,8 +9,12 @@ const actions: ActionTree<any, any> = {
       try {
         const response = await axios.post("/v1/api/resources/search", payload);
 
-        const json = ndjson(response.data as string);
-
+        let json = [];
+        if (typeof response.data == "object") {
+          json = [response.data];
+        } else {
+          json = ndjson(response.data as string);
+        }
         commit("setResources", json);
         resolve(json);
       } catch (e) {

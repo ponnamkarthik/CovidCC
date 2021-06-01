@@ -168,6 +168,7 @@ export default {
         type: values.type,
         comments: [values.comments],
         locationAddress: values.address,
+        mobileNumber: values.mobile,
       };
 
       try {
